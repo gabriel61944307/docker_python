@@ -16,4 +16,4 @@ Base = declarative_base()
 
 # Função utilitária para criar tabelas
 def init_db():
-    from .models import cliente
+    from app.models import cliente
