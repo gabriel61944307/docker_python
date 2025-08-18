@@ -1,9 +1,5 @@
-from app.db import init_db
-from app.repositories import cliente_operations, processo_operations
 # pylint: disable=C0114, C0115
-
-# Inicializa tabelas
-init_db()
+from app.repositories import cliente_operations, processo_operations
 
 # Criar alguns clientes
 # c1 = cliente_operations.criar("Maria", "testemariaJOAQUINA@email.com")

@@ -21,7 +21,7 @@ def criar(polo_ativo: str, polo_passivo: str):
     with _db_session() as session:
         processo = Processo(polo_ativo=polo_ativo, polo_passivo=polo_passivo)
         session.add(processo)
-        session.flush() 
+        session.flush()
         return ProcessoSchema.model_validate(processo, from_attributes=True)
 
 # Buscar todos os clientes
