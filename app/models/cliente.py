@@ -1,7 +1,7 @@
 # pylint: disable=C0114, C0115
 from sqlalchemy import Column, Integer, String
 from pydantic import BaseModel
-from ..db import Base
+from app.db import Base
 
 class Cliente(Base):
     __tablename__ = 'clientes'
