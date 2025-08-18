@@ -1,31 +1,16 @@
 # pylint: disable=C0114, C0115, C0116
-from contextlib import contextmanager
-from sqlalchemy.exc import SQLAlchemyError
-from app.db import SessionLocal
-from app.models.cliente import Cliente, ClienteSchema
-
-@contextmanager
-def _db_session():
-    session = SessionLocal()
-    try:
-        yield session
-        session.commit()
-    except SQLAlchemyError:
-        session.rollback()
-        raise
-    finally:
-        session.close()
+from sqlalchemy.orm import Session
+from app.models.cliente import Cliente, ClienteCreate, ClienteRead
 
 # Criar cliente
-def criar(nome: str, email: str):
-    with _db_session() as session:
-        cliente = Cliente(nome=nome, email=email)
-        session.add(cliente)
-        session.flush()
-        return ClienteSchema.model_validate(cliente, from_attributes=True)
+def criar(db: Session, cliente_data: ClienteCreate):
+    cliente = Cliente(**cliente_data.model_dump())
+    db.add(cliente)
+    db.commit()
+    db.refresh(cliente)
+    return cliente
 
 # Buscar todos os clientes
-def listar():
-    with _db_session() as session:
-        clientes = session.query(Cliente).all()
-        return [ClienteSchema.model_validate(c, from_attributes=True) for c in clientes]
+def listar(db: Session):
+    clientes = db.query(Cliente).all()
+    return [ClienteRead.model_validate(c, from_attributes=True) for c in clientes]

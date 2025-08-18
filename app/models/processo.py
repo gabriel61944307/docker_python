@@ -10,7 +10,9 @@ class Processo(Base):
     polo_ativo = Column(String, nullable=False)
     polo_passivo = Column(String, nullable=False)
 
-class ProcessoSchema(BaseModel):
-    nro_processo: int
+class ProcessoCreate(BaseModel):
     polo_ativo: str
     polo_passivo: str
+
+class ProcessoRead(ProcessoCreate):
+    nro_processo: int

@@ -10,7 +10,9 @@ class Cliente(Base):
     nome = Column(String, nullable=False)
     email = Column(String, unique=True, index=True)
 
-class ClienteSchema(BaseModel):
-    id: int
+class ClienteCreate(BaseModel):
     nome: str
     email: str
+
+class ClienteRead(ClienteCreate):
+    id: int
